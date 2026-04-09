@@ -18,7 +18,7 @@ import { Footer } from "@/components/layout/footer";
 import { NeonButton } from "@/components/ui/neon-button";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useCartStore } from "@/store/cart-store";
-import { formatCurrency, sanitizeInput } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import toast from "react-hot-toast";
 
 const checkoutSchema = z.object({
@@ -49,9 +49,9 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     const sanitizedData = {
-      name: sanitizeInput(data.name),
-      email: sanitizeInput(data.email),
-      company: data.company ? sanitizeInput(data.company) : undefined,
+      name: data.name,
+      email: data.email,
+      company: data.company || undefined,
     };
 
     try {
