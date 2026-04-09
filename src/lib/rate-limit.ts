@@ -40,7 +40,7 @@ export function checkRateLimit(
 
 // Cleanup stale entries periodically
 if (typeof globalThis !== "undefined") {
-  setInterval(() => {
+  const timer = setInterval(() => {
     const now = Date.now();
     for (const [key, value] of rateMap.entries()) {
       if (now > value.resetTime) {
@@ -48,4 +48,7 @@ if (typeof globalThis !== "undefined") {
       }
     }
   }, 60_000);
+  if (typeof timer === "object" && "unref" in timer) {
+    timer.unref();
+  }
 }
